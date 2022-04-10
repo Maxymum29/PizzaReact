@@ -82,14 +82,18 @@ const PizzaBlock = ({pizza}) => {
 PizzaBlock.propTypes = {
     name: PropTypes.string,
     imageUrl: PropTypes.string,
-    types: PropTypes.arrayOf(PropTypes.number), 
-    sizes: PropTypes.arrayOf(PropTypes.number), 
-    price: PropTypes.number
-}
-
-PizzaBlock.defaultProps = {
+    price: PropTypes.number,
+    types: PropTypes.arrayOf(PropTypes.number),
+    sizes: PropTypes.arrayOf(PropTypes.number),
+    onClickAddPizza: PropTypes.func,
+    addedCount: PropTypes.number,
+  };
+  
+  PizzaBlock.defaultProps = {
+    name: '---',
+    price: 0,
     types: [],
-    sizes: [] 
-}
+    sizes: [],
+  };
 
 export default PizzaBlock;

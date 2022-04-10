@@ -50,6 +50,78 @@ const GlobalIconsSvg = ({id, className}) => {
               />
             </svg>
             )
+            case 'preloader':
+              return (
+                <svg
+                role="img"
+                width="280"
+                height="460"
+                ariaLabelledby="loading-aria"
+                viewBox="0 0 280 460"
+                preserveAspectRatio="none"
+              >
+                <title id="loading-aria">Loading...</title>
+                <rect
+                  x="0"
+                  y="0"
+                  width="100%"
+                  height="100%"
+                  clipPath="url(#clip-path)"
+                  style='fill: url("#fill");'
+                ></rect>
+                <defs>
+                  <clipPath id="clip-path">
+                      <circle cx="140" cy="140" r="140" /> 
+                      <circle cx="208" cy="133" r="23" /> 
+                      <rect x="134" y="109" rx="0" ry="0" width="84" height="17" /> 
+                      <rect x="0" y="300" rx="3" ry="3" width="275" height="28" /> 
+                      <rect x="0" y="354" rx="6" ry="6" width="280" height="84" />
+                  </clipPath>
+                  <linearGradient id="fill">
+                    <stop
+                      offset="0.599964"
+                      stopColor="#f3f3f3"
+                      stopOpacity="1"
+                    >
+                      <animate
+                        attributeName="offset"
+                        values="-2; -2; 1"
+                        keyTimes="0; 0.25; 1"
+                        dur="2s"
+                        repeatCount="indefinite"
+                      ></animate>
+                    </stop>
+                    <stop
+                      offset="1.59996"
+                      stopColor="#ecebeb"
+                      stopOpacity="1"
+                    >
+                      <animate
+                        attributeName="offset"
+                        values="-1; -1; 2"
+                        keyTimes="0; 0.25; 1"
+                        dur="2s"
+                        repeatCount="indefinite"
+                      ></animate>
+                    </stop>
+                    <stop
+                      offset="2.59996"
+                      stopColor="#f3f3f3"
+                      stopOpacity="1"
+                    >
+                      <animate
+                        attributeName="offset"
+                        values="0; 0; 3"
+                        keyTimes="0; 0.25; 1"
+                        dur="2s"
+                        repeatCount="indefinite"
+                      ></animate>
+                    </stop>
+                  </linearGradient>
+                </defs>
+              </svg>
+                
+              )
           default: return null
   }
 };
