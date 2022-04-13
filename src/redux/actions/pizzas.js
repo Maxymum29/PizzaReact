@@ -12,9 +12,10 @@ export const fetchPizzas = (category, sortBy) => async (dispatch) => {
     try {
         dispatch(setLoaded(false));
         const response = await axios.get(
-            `http://localhost:3001/pizzas?${
-                category !== null ? `category=${category}` : ''
-            }&_sort=${sortBy.type}&_order=${sortBy.order}`,
+            /* в файле packegе.json добавлен proxy с 3001 портом поэтому доступ к серверу доступен на 3000 */
+            `/pizzas?${category !== null ? `category=${category}` : ''}&_sort=${
+                sortBy.type
+            }&_order=${sortBy.order}`,
         );
         const data = await response.data;
         dispatch(setPizzas(data));

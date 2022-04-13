@@ -1,13 +1,14 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import classNames from "classnames";
+import Button from '../Button'
 
-const PizzaBlock = ({pizza}) => {
-    const {imageUrl, name, types, sizes, price} = pizza;
+const PizzaBlock = ({pizza, onClickAddPizza, inCartCount}) => {
+    const {id, imageUrl, name, types, sizes, price} = pizza;
     const typesActive = ['тонкое', 'традиционное'];
     const availableSize = [26, 30, 40]; 
     const [activeType, setActiveType] = useState(types[0])
-    const [activeSize, setActiveSize] = useState(sizes[0])
+    const [activeSize, setActiveSize] = useState(0)
 
     const onSelectType = (index) => {
         setActiveType(index)
@@ -15,6 +16,18 @@ const PizzaBlock = ({pizza}) => {
 
     const onSelectSize = (index) => {
         setActiveSize(index)
+    }
+
+    const onAddPizza = () => {
+        const obj = {
+            id,
+            name,
+            imageUrl,
+            price,
+            type: typesActive[activeType],
+            size: availableSize[activeSize]
+        }
+        onClickAddPizza(obj)
     }
 
     return (
@@ -58,7 +71,7 @@ const PizzaBlock = ({pizza}) => {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
-                <div className="button button--outline button--add">
+                <Button onClick={onAddPizza} className="button--outline button--add">
                 <svg
                     width="12"
                     height="12"
@@ -72,8 +85,8 @@ const PizzaBlock = ({pizza}) => {
                     />
                 </svg>
                 <span>Добавить</span>
-                <i>2</i>
-                </div>
+                {inCartCount && <i>{inCartCount}</i>}
+                </Button>
             </div>
         </div>
     );
@@ -86,7 +99,7 @@ PizzaBlock.propTypes = {
     types: PropTypes.arrayOf(PropTypes.number),
     sizes: PropTypes.arrayOf(PropTypes.number),
     onClickAddPizza: PropTypes.func,
-    addedCount: PropTypes.number,
+    inCartCount: PropTypes.number,
   };
   
   PizzaBlock.defaultProps = {

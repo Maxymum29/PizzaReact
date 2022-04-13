@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Categories, PizzaBlock, SortPopup } from "../components";
 import ContentLoader from "react-content-loader"
 import { fetchPizzas } from '../redux/actions/pizzas';
+import {addPizzaToCart} from '../redux/actions/cart' 
 import {setCategory, setFilter} from '../redux/actions/filters'
 
 const categoryNames = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
@@ -16,6 +17,7 @@ const categorySort = [
 const Home = () => {
     const dispatch = useDispatch();
     const pizzas = useSelector((state) => state.pizzas.items);
+    const cartItems = useSelector((state) => state.cart.items);
     const loading = useSelector((state) => state.pizzas.isLoading);
     const {category, sortBy} = useSelector((state) => state.filters);
 
@@ -27,6 +29,10 @@ const Home = () => {
     const onSelectSort = useCallback((name) => {
         dispatch(setFilter(name))
     }, [])
+
+    const onAddPizzaToCart = (obj) => {
+        dispatch(addPizzaToCart(obj))
+    }
 
     useEffect(() => {
         
@@ -45,7 +51,12 @@ const Home = () => {
                 {loading 
                     ? pizzas.map(pizza => {
                         return (
-                            <PizzaBlock key={pizza.id} pizza={pizza}/>
+                            <PizzaBlock 
+                                onClickAddPizza={onAddPizzaToCart} 
+                                inCartCount={cartItems[pizza.id] && cartItems[pizza.id].items.length} 
+                                key={pizza.id} 
+                                pizza={pizza}
+                            />
                         )
                     })
                     : Array(10).fill(0).map((_, index) => (
